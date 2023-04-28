@@ -28,7 +28,7 @@ app.use(routes);
 app.use(errors());
 app.use(errorHandler);
 
-mongoose.connect('mongodb://0.0.0.0:27017/mestodb');
+mongoose.connect('mongodb://127.0.0.1:27017/mestodb');
 
 app.listen(PORT, () => {
   console.log(`Server started at http://localhost:${PORT}`);

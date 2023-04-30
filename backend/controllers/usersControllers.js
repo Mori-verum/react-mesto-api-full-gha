@@ -128,17 +128,18 @@ const login = (req, res, next) => {
       }
       const token = jwt.sign({ _id: userId }, 'user-secret-key', { expiresIn: '7d' });
       return res
-        .cookie('jwt', token, {
-          maxAge: 3600000 * 24 * 7,
-          httpOnly: true,
-        })
-        .send({ message: 'Данные о клиенте сохранились в httpOnly' });
+        // .cookie('jwt', token, {
+        //   maxAge: 3600000 * 24 * 7,
+        //   httpOnly: true,
+        // })
+        // .send({ message: 'Данные о клиенте сохранились в httpOnly' });
+        .send({ token });
     })
     .catch(next);
 };
 
 const logout = (req, res) => {
-  res.clearCookie('jwt').send({ message: 'Выход' });
+  res.clearCookie('token').send({ message: 'Выход' });
 };
 
 const getCurrentUser = (req, res, next) => {

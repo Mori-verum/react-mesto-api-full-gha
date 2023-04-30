@@ -18,13 +18,10 @@ import * as auth from '../auth.js';
 
 function App() {
   const [infoTooltipState, setInfoTooltipState] = useState({isSuccess: null, text: ''})
-  // const [isSuccessful, setIsSuccessful] = useState(null);
-  // const [textForInfoTooltip, setTextForInfoTooltip] = useState('');
   const [currentUser, setCurrentUser] = useState({});
   const [userEmail, setUserEmail] = useState('');
   const [cards, setCards] = useState([])
   const [selectedCard, setSelectedCard] = useState(null);
-  // const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
   const [isOpenPopup, setIsOpenPopup] = useState({
     isEditAvatarPopupOpen: false,
     isEditProfilePopupOpen: false,
@@ -38,7 +35,7 @@ function App() {
 
 useEffect(() => {
   checkToken();
-}, [])
+}, [loggedIn])
 
 useEffect(() => {
   if (loggedIn) {
@@ -110,7 +107,7 @@ function closeAllPopups() {
 }
 
 function handleCardLike(card) {
-  const isLiked = card.likes.some(i => i._id === currentUser._id);
+  const isLiked = card.likes.some(id => id === currentUser._id);
 
   api
     .changeLikeCardStatus(card._id, isLiked)
@@ -216,12 +213,13 @@ function checkToken() {
     auth.checkToken(token)
       .then((res) => {
         if (res) {
-          setUserEmail(res.data.email);
+          setUserEmail(res.email);
           setLoggedIn(true);
           navigate('/', { replace: true })
         }
       })
       .catch((err) => {
+        localStorage.removeItem('token');
         console.log(err);
       });
   }

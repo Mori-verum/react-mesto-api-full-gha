@@ -4,8 +4,8 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext.js"
 function Card(props) {
   const userData = React.useContext(CurrentUserContext);
   
-  const isOwn = props.card.owner._id === userData._id;
-  const isLiked = props.likes.some(i => i._id === userData._id);
+  const isOwn = props.card.owner === userData._id;
+  const isLiked = props.likes.some(id => id === userData._id);
   const cardLikeButtonClassName = (
     `element__like-button ${isLiked && 'element__like-button_enabled'}`
   );

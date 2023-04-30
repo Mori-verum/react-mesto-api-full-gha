@@ -31,7 +31,6 @@ app.use(routes);
 app.use(errors());
 app.use(errorHandler);
 
-
 app.listen(PORT, () => {
   console.log(`Server started at http://localhost:${PORT}`);
 });

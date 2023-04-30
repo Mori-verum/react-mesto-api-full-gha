@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
+const cors = require('cors');
 const { validateUserBody, validateLoginParametrs } = require('./utils/validateRequestParameters');
 const routes = require('./routes/index');
 const {
@@ -15,6 +16,8 @@ const errorHandler = require('./middlewares/errorHandler');
 const { PORT = 3000 } = process.env;
 
 const app = express();
+app.use(cors());
+mongoose.connect('mongodb://127.0.0.1:27017/mestodb');
 
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -28,7 +31,6 @@ app.use(routes);
 app.use(errors());
 app.use(errorHandler);
 
-mongoose.connect('mongodb://127.0.0.1:27017/mestodb');
 
 app.listen(PORT, () => {
   console.log(`Server started at http://localhost:${PORT}`);

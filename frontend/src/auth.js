@@ -28,13 +28,13 @@ export const authorize = (email, password) => {
     body: JSON.stringify({ email: email, password: password })
   })
     .then((res) => checkResponse(res))
-    // .then((data) => {
-    //   console.log(data);
-    //   if (data.token) {
-    //     localStorage.setItem('token', data.token);
-    //     return data;
-    //   }
-    // })
+    .then((data) => {
+      console.log(data);
+      if (data.token) {
+        localStorage.setItem('token', data.token);
+        return data;
+      }
+    })
     .catch(err => console.log(err))
 }
 

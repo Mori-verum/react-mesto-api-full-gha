@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
 const cors = require('cors');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { validateUserBody, validateLoginParametrs } = require('./utils/validateRequestParameters');
 const routes = require('./routes/index');
 const {
@@ -23,6 +24,8 @@ mongoose.connect('mongodb://127.0.0.1:27017/mestodb');
 app.use(bodyParser.json());
 app.use(cookieParser());
 
+app.use(requestLogger);
+
 app.post('/signin', validateLoginParametrs, login);
 app.post('/signup', validateUserBody, createUser);
 app.get('/signout', logout);
@@ -33,6 +36,8 @@ app.get('/crash-test', () => {
   }, 0);
 });
 app.use(routes);
+
+app.use(errorLogger);
 
 app.use(errors());
 app.use(errorHandler);

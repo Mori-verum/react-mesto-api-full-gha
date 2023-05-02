@@ -19,7 +19,7 @@ function EditProfilePopup(props) {
     }
 
     function handleChangeUserDescription(evt) {
-        setUserName(evt.target.value);
+        setUserDescription(evt.target.value);
     }
 
     function handleSubmit(evt) {

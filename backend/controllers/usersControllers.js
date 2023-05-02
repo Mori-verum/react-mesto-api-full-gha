@@ -139,9 +139,9 @@ const login = (req, res, next) => {
     .catch(next);
 };
 
-const logout = (req, res) => {
-  res.clearCookie('token').send({ message: 'Выход' });
-};
+// const logout = (req, res) => {
+//   res.clearCookie('token').send({ message: 'Выход' });
+// };
 
 const getCurrentUser = (req, res, next) => {
   User.findById(req.user._id)
@@ -161,6 +161,6 @@ module.exports = {
   updateUser,
   updateAvatar,
   login,
-  logout,
+  // logout,
   getCurrentUser,
 };

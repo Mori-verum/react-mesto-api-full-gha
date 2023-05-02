@@ -11,15 +11,15 @@ const routes = require('./routes/index');
 const {
   createUser,
   login,
-  logout,
+  // logout,
 } = require('./controllers/usersControllers');
 const errorHandler = require('./middlewares/errorHandler');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3000, DB_ADDRESS } = process.env;
 
 const app = express();
 app.use(cors());
-mongoose.connect('mongodb://127.0.0.1:27017/mestodb');
+mongoose.connect(DB_ADDRESS);
 
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -28,7 +28,7 @@ app.use(requestLogger);
 
 app.post('/signin', validateLoginParametrs, login);
 app.post('/signup', validateUserBody, createUser);
-app.get('/signout', logout);
+// app.get('/signout', logout);
 
 app.get('/crash-test', () => {
   setTimeout(() => {

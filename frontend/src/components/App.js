@@ -175,6 +175,7 @@ function handleCardSubmit(data) {
 function handleLogin(formValue) {
   auth.authorize(formValue.email, formValue.password)
     .then((data) => {
+      console.log(data);
       if (data.token) {
         setUserEmail(formValue.email);
         setLoggedIn(true);
@@ -196,7 +197,7 @@ function handleLogout() {
 function handleRegister(formValue) {
   auth.register(formValue)
     .then((res) => {
-      if (res.data) {
+      if (res._id) {
         setInfoTooltipState({isSuccess: true, text: 'Вы успешно зарегистрировались!'});
       } else {
         setInfoTooltipState({isSuccess: false, text: 'Что-то пошло не так! Попробуйте ещё раз.'});
